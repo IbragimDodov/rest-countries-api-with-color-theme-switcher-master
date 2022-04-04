@@ -1,50 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+import Country from "./components/Country";
+import Filter from "./components/Filter";
+import DarkMode from "./components/DarkMode";
+import Search from "./components/Search";
+
 import './App.css';
 
 function App() {
+
+  const [countries, setCountries] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const onChangeSearchInput = (searchValue) => {
+    setSearchValue(searchValue);
+  }
+
+  useEffect(() => {
+    axios.get('https://restcountries.com/v2/all')
+      .then(({data}) => {
+        setCountries(data);
+      });
+  }, [])
+
   return (
     <div className="App">
-      <header className="header">
-        <div className="container">
+      <div className="container">
+        <header className="header">
           <div className="header__inner">
             <h1>Where in the world?</h1>
-            <div className="dark-mode-block">
-              <img className="dark-mode-block__img" src="img/sleep-mode.png" alt="dark-mode icon" />
-              <p className="dark-mode-block__text">Dark Mode</p>
-            </div>
+            <DarkMode/>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="main">
-        <div className="container">
+        <main className="main">
           <div className="main__inner">
             <div className="main__top-block">
+              <Search onChange={onChangeSearchInput} searchValue={searchValue} />
+              <Filter countries={countries} />
+              
+            </div>
 
-              <div className="main__search">
-                <input className="main__search-input" type="search" placeholder="search for a country..." />
-                <img className="main__search-img" src="img/search.png" alt="search icon" />
-              </div>
-
-              <div className="main__filter">
-                <div className="dropdown">
-                  <div className="dropdown__btn-block">
-                    <button className="dropdown__btn">Filter by Region</button>
-                    <img className="dropdown__img" src="img/dropdown.png" alt="dropdown icon" />
-                  </div>
-                  <div className="dropdown__links-wrapper">
-                    <a className="dropdown__link" href="#">Africa</a>
-                    <a className="dropdown__link" href="#">America</a>
-                    <a className="dropdown__link" href="#">Asia</a>
-                    <a className="dropdown__link" href="#">Evrope</a>
-                    <a className="dropdown__link" href="#">Oceania</a>
-                  </div>
-                </div>
-              </div>
+            <div className="main__countries-block">
+              {countries
+                .filter(item => item.name.toLowerCase().includes(searchValue))
+                .map(country => (
+                  <Country
+                    key={country.name}
+                    name={country.name}
+                    population={country.population}
+                    region={country.region}
+                    capital={country.capital}
+                    flag={country.flag}
+                  />
+              ))}
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+
+      </div>
     </div>
   );
 }

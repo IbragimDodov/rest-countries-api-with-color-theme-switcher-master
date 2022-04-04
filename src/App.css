@@ -1,3 +1,4 @@
+
 .container {
   margin: 0 auto;
   width: 1024px;
@@ -13,26 +14,37 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .dark-mode-block__img {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 
 .dark-mode-block__text {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
-main {
+.main {
   background-color: #f2f2f2;
   padding: 30px;
+}
+
+.main-dark {
+  background-color: #2C3C4A;
+}
+
+.main-light {
+  background-color: #f2f2f2;
 }
 
 .main__top-block {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .main__search {
@@ -68,32 +80,86 @@ main {
 .dropdown__btn {
   padding: 10px 50px 10px 20px;
   border: none;
-  cursor: pointer;
   background-color: #fff;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .dropdown__img {
   position: absolute;
   right: 10px;
   top: 12px;
+  cursor: pointer;
 }
 
 .dropdown__links-wrapper {
-  /* display: none; */
+  position: relative;
+}
+
+.dropdown__links-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   background-color: #fff;
   margin-top: 5px;
   border-radius: 5px;
+  padding: 0;
 }
 
 .dropdown__link {
   text-decoration: none;
   color: #000;
   padding: 3px 20px;
+  list-style: none;
+  cursor: pointer;
+  border: 3px solid #fff;
+}
+
+.dropdown__link--active {
+  background-color: #f2f2f2;
 }
 
 .dropdown__link:hover {
   background-color: #f2f2f2;
+}
+
+.main__countries-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.country {
+  width: 200px;
+  margin-bottom: 25px;
+}
+
+.country__info-block-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.country__img {
+  width: 100%;
+  height: 140px;
+}
+
+.country__info-block {
+  font-size: 14px;
+  padding-left: 15px;
+}
+
+.country__info-block-text {
+  font-weight: bold;
+  padding: 3px;
+  margin: 0;
+}
+
+.country__info-block-text span {
+  font-weight: normal;
 }
