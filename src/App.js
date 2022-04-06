@@ -12,6 +12,7 @@ function App() {
 
   const [countries, setCountries] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [regionFilter, setRegionFilter] = useState('');
 
   const onChangeSearchInput = (searchValue) => {
     setSearchValue(searchValue);
@@ -24,7 +25,7 @@ function App() {
       });
   }, [])
 
-  const someArr = countries.map(country => country.region);
+  const regionsArr = countries.map(country => country.region);
 
   return (
     <div className="App">
@@ -40,14 +41,15 @@ function App() {
           <div className="main__inner">
             <div className="main__top-block">
               <Search onChange={onChangeSearchInput} searchValue={searchValue} />
-              <Filter someArr={someArr} countries={countries} />
+              <Filter regionsArr={regionsArr} regionFilter={regionFilter} setRegionFilter={setRegionFilter} />
               
             </div>
 
             <div className="main__countries-block">
 
               {countries
-                .filter(item => item.name.toLowerCase().includes(searchValue))
+                .filter(item => item.region.toLowerCase().includes(regionFilter.toLowerCase()))
+                .filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()))
                 .map(country => (
                   <Country
                     key={country.name}
