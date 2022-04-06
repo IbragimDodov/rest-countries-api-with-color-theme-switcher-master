@@ -1,20 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-function Filter({countries}) {
+function Filter({countries, someArr}) {
 
   const [visiblePopup, setVisiblePopup] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
+  const [filtered, setFiltered] = useState(someArr);
+
+  
+
   const sortRef = useRef();
+  
+  const arrayOfRegion = [...new Set(someArr)];
+
+  const activeLabel = arrayOfRegion[activeItem];
 
   const onSelectItem = (index) => {
     setActiveItem(index);
     setVisiblePopup(false);
   };
 
+  // const filteredRegion = (activeLabel) => {
+  //   // return countries.filter(item => item.region === activeLabel);
+  //   // let filterReg = someArr.filter((item) => item == activeLabel);
+  //   // return setFiltered(filterReg);
+  //   return someArr.filter((item) => item == activeLabel);
+  // };
 
-  const someArr = countries.map(country => country.region);
-  const arrayOfRegion = [...new Set(someArr)];
-  const activeLabel = arrayOfRegion[activeItem];
+    
 
   const togglePopup = () => {
     setVisiblePopup(!visiblePopup);

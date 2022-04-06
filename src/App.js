@@ -24,6 +24,8 @@ function App() {
       });
   }, [])
 
+  const someArr = countries.map(country => country.region);
+
   return (
     <div className="App">
       <div className="container">
@@ -38,11 +40,12 @@ function App() {
           <div className="main__inner">
             <div className="main__top-block">
               <Search onChange={onChangeSearchInput} searchValue={searchValue} />
-              <Filter countries={countries} />
+              <Filter someArr={someArr} countries={countries} />
               
             </div>
 
             <div className="main__countries-block">
+
               {countries
                 .filter(item => item.name.toLowerCase().includes(searchValue))
                 .map(country => (
